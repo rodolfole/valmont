@@ -1,0 +1,44 @@
+---
+const links = [
+  { href: "#cabin", label: "The Cabin" },
+  { href: "#gallery", label: "Gallery" },
+  { href: "#amenities", label: "Amenities" },
+  { href: "#story", label: "Story" },
+];
+---
+
+<header class="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 sm:pt-6">
+  <nav
+    class="mx-auto flex max-w-5xl items-center justify-between rounded-full border border-white/10 bg-ink-900/70 px-5 py-3 backdrop-blur-md sm:px-6"
+  >
+    <a href="#top" class="flex items-center" aria-label="Valmont — home">
+      <img
+        src="/valmont_logo.svg"
+        alt="Valmont"
+        width="166"
+        height="20"
+        class="h-5 w-auto brightness-0 invert sm:h-6"
+      />
+    </a>
+
+    <ul class="hidden items-center gap-7 text-sm text-frost-300 md:flex">
+      {links.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            class="transition-colors hover:text-snow focus-visible:text-snow"
+          >
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a
+      href="#book"
+      class="rounded-full bg-snow px-4 py-2 text-xs font-medium tracking-wide text-ink-950 transition hover:bg-ember sm:text-sm"
+    >
+      Book Stay
+    </a>
+  </nav>
+</header>

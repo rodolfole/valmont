@@ -1,0 +1,57 @@
+---
+import { getImage } from "astro:assets";
+import heroImg from "../assets/images/alpine_cabin_night_optimized.webp";
+
+// LCP. AVIF first, WebP fallback, raw <img> last.
+const widths = [640, 960, 1280, 1600, 1920];
+const sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw";
+
+const avifSet = await Promise.all(
+  widths.map((w) =>
+    getImage({ src: heroImg, width: w, format: "avif", quality: 55 })
+  )
+);
+const webpSet = await Promise.all(
+  widths.map((w) =>
+    getImage({ src: heroImg, width: w, format: "webp", quality: 72 })
+  )
+);
+
+const avifSrcset = avifSet.map((i, idx) => `${i.src} ${widths[idx]}w`).join(", ");
+const webpSrcset = webpSet.map((i, idx) => `${i.src} ${widths[idx]}w`).join(", ");
+const fallbackSrc = webpSet[webpSet.length - 1].src;
+---
+
+<section
+  id="top"
+  class="relative isolate flex min-h-[100svh] items-end justify-end overflow-hidden"
+>
+  <picture>
+    <source type="image/avif" srcset={avifSrcset} sizes={sizes} />
+    <source type="image/webp" srcset={webpSrcset} sizes={sizes} />
+    <img
+      src={fallbackSrc}
+      alt="Valmont cabin at night, surrounded by alpine forest and mountain peaks"
+      width="2048"
+      height="1152"
+      loading="eager"
+      fetchpriority="high"
+      decoding="sync"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+  </picture>
+
+  <a
+    href="#book"
+    class="group relative z-10 m-6 inline-flex items-center gap-3 rounded-full bg-snow px-6 py-3 text-sm font-medium text-ink-950 shadow-lg shadow-black/30 transition hover:bg-ember sm:m-10"
+  >
+    Reserve your stay
+    <span
+      class="grid h-6 w-6 place-items-center rounded-full bg-ink-950 text-snow transition group-hover:bg-snow group-hover:text-ink-950"
+    >
+      <svg viewBox="0 0 12 12" class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M2 6h8M7 3l3 3-3 3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </span>
+  </a>
+</section>
