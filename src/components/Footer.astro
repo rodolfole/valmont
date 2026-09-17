@@ -1,0 +1,93 @@
+---
+const columns = [
+  {
+    title: "Visit",
+    links: [
+      { label: "Reserve", href: "#book" },
+      { label: "Availability", href: "#" },
+      { label: "Concierge", href: "#" },
+    ],
+  },
+  {
+    title: "Cabin",
+    links: [
+      { label: "The Cabin", href: "#cabin" },
+      { label: "Gallery", href: "#gallery" },
+      { label: "Amenities", href: "#amenities" },
+    ],
+  },
+  {
+    title: "Cabin Co.",
+    links: [
+      { label: "Story", href: "#story" },
+      { label: "Journal", href: "#" },
+      { label: "Press", href: "#" },
+    ],
+  },
+];
+
+const socials = [
+  { label: "Instagram", href: "#" },
+  { label: "Are.na", href: "#" },
+  { label: "Email", href: "#" },
+];
+---
+
+<footer class="relative border-t border-white/10 bg-ink-950 pt-20 pb-10">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
+      <div class="max-w-sm">
+        <a href="#top" class="inline-flex items-center" aria-label="Valmont — home">
+          <img
+            src="/valmont_logo.svg"
+            alt="Valmont"
+            width="166"
+            height="20"
+            class="h-6 w-auto opacity-90"
+          />
+        </a>
+        <p class="mt-5 text-pretty text-sm leading-relaxed text-frost-300">
+          A winter cabin in Aspen Ridge, Colorado. Hand-built, quietly
+          hosted, and open December through April.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-3">
+        {columns.map((c) => (
+          <div>
+            <p class="text-xs tracking-[0.25em] uppercase text-frost-400">
+              {c.title}
+            </p>
+            <ul class="mt-5 space-y-3 text-sm text-frost-200">
+              {c.links.map((l) => (
+                <li>
+                  <a
+                    href={l.href}
+                    class="transition hover:text-snow"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div
+      class="mt-16 flex flex-col-reverse items-start justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center"
+    >
+      <p class="text-xs text-frost-500">
+        © {new Date().getFullYear()} Valmont Cabin Co. · Aspen Ridge, CO.
+      </p>
+      <ul class="flex gap-6 text-xs text-frost-300">
+        {socials.map((s) => (
+          <li>
+            <a href={s.href} class="transition hover:text-snow">{s.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</footer>
