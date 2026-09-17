@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+
+// Portrait-first gallery: each card is ~260-320px wide on desktop.
+// Mobile gets a single 280px card per snap, so widths step 280 → 480.
+import loftBedroom from "../assets/images/valmont_cabin_night_optimized.webp";
+import readingNook from "../assets/images/cozy_cedar_reading_nook_optimized.webp";
+import sauna from "../assets/images/cedar_sauna_night_optimized.webp";
+import fireplace from "../assets/images/cozy_cabin_fireplace_optimized.webp";
+import kitchen from "../assets/images/cozy_cabin_kitchen_optimized.webp";
+import hotTubDeck from "../assets/images/image_2_optimized.webp";
+import diningHall from "../assets/images/valmont_cabin_dining_hall_optimized.webp";
+
+const shots = [
+  { caption: "Cabin exterior", src: loftBedroom, alt: "Valmont cabin glowing at night under starry alpine sky" },
+  { caption: "Reading nook", src: readingNook, alt: "Cedar-walled reading nook with soft amber light" },
+  { caption: "Sauna", src: sauna, alt: "Wood-fired cedar sauna at night" },
+  { caption: "Fireplace", src: fireplace, alt: "Stone fireplace glowing inside the cabin" },
+  { caption: "Kitchen", src: kitchen, alt: "Hand-finished kitchen inside Valmont" },
+  { caption: "Mountain view", src: hotTubDeck, alt: "Alpine forest landscape seen from the cabin" },
+  { caption: "Dining hall", src: diningHall, alt: "Long cedar dining table inside the cabin" },
+];
+
+// Cards are 260-320px on desktop; up to 2 cards visible at a time on tablets.
+// On mobile (~360px viewport) one card fits at ~280-320px wide → 360-480 srcset.
+const cardSizes = "(max-width: 640px) 78vw, (max-width: 1024px) 45vw, 320px";
+---
+
+<section id="gallery" class="relative bg-ink-900 py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <p class="mb-3 text-xs tracking-[0.4em] uppercase text-frost-400">
+          Inside
+        </p>
+        <h2 class="font-display text-3xl text-snow sm:text-4xl">
+          Rooms warmed by hand.
+        </h2>
+      </div>
+      <p class="max-w-sm text-sm text-frost-300">
+        Every piece of Valmont was chosen for how it feels at the end of the
+        day — wood that holds warmth, linen that softens with use, light that
+        asks nothing of the bulb it came from.
+      </p>
+    </div>
+  </div>
+
+  <div
+    class="relative flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6"
+  >
+    {shots.map((s, i) => (
+      <figure
+        class="group relative shrink-0 snap-start overflow-hidden rounded-2xl ring-1 ring-white/10"
+        style={`width: ${i === 0 ? 320 : i === shots.length - 1 ? 280 : 260}px; height: 420px;`}
+      >
+        <Image
+          src={s.src}
+          alt={s.alt}
+          widths={[320, 480, 640, 800]}
+          sizes={cardSizes}
+          loading={i < 2 ? "eager" : "lazy"}
+          fetchpriority={i === 0 ? "high" : "auto"}
+          decoding="async"
+          format="webp"
+          quality={68}
+          class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+        />
+        <div
+          class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.10),transparent_55%)]"
+        >
+        </div>
+        <div
+          class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-5"
+        >
+          <figcaption class="text-sm text-snow">{s.caption}</figcaption>
+          <p class="mt-1 text-[10px] tracking-[0.3em] uppercase text-frost-300/70">
+            0{i + 1} / 07
+          </p>
+        </div>
+      </figure>
+    ))}
+  </div>
+</section>
