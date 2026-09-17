@@ -1,0 +1,66 @@
+---
+import { Image } from "astro:assets";
+import interior from "../assets/images/cabin_interior_night_optimized.webp";
+
+// On mobile the image sits above text (full-width, ~360px).
+// On desktop (≥1024px) the image takes ~58% of a max-w-7xl container → ~960-1280px.
+const sizes =
+  "(max-width: 640px) 92vw, (max-width: 1024px) 90vw, (max-width: 1280px) 58vw, 720px";
+---
+
+<section class="relative isolate overflow-hidden bg-ink-950 py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid items-center gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
+      <div class="order-2 lg:order-1">
+        <p class="mb-6 text-xs tracking-[0.4em] uppercase text-frost-400">
+          Inside &amp; Out
+        </p>
+        <h2 class="font-display text-4xl leading-[1.05] text-snow sm:text-5xl lg:text-6xl">
+          Warm wood. <br />Cold outside.
+        </h2>
+        <p class="mt-8 max-w-md text-pretty text-base leading-relaxed text-frost-300 sm:text-lg">
+          Where the fire crackles and time slows down. Every surface at
+          Valmont was finished by hand — the kind of place that gets quieter
+          the longer you stay.
+        </p>
+        <ul class="mt-10 space-y-4 text-sm text-frost-200">
+          <li class="flex items-start gap-3">
+            <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-ember"></span>
+            Locally sourced Engelmann spruce and reclaimed stone.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-ember"></span>
+            South-facing windows that track the low winter sun all day.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-ember"></span>
+            Cedar sauna and outdoor soaking tub, both fed by mountain spring.
+          </li>
+        </ul>
+      </div>
+
+      <figure
+        class="order-1 relative aspect-[5/4] overflow-hidden rounded-3xl ring-1 ring-white/10 lg:order-2"
+      >
+        <Image
+          src={interior}
+          alt="Warm interior of Valmont: wooden walls, low fireplace glow, dim amber light"
+          widths={[480, 768, 1024, 1280, 1600]}
+          sizes={sizes}
+          loading="lazy"
+          decoding="async"
+          format="webp"
+          quality={72}
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+        <!-- Subtle dark veil so caption stays legible on bright interiors -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent"></div>
+        <figcaption
+          class="absolute bottom-4 left-5 text-[10px] tracking-[0.3em] uppercase text-frost-100/85"
+        >
+          Great room · wood, stone, low light
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
