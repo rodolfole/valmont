@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets";
+import BookingWidget from "./BookingWidget.tsx";
+import ctaBg from "../assets/images/alpine_cabin_milky_way_optimized.webp";
+
+// CTA background spans the full section width; the form lives inside a
+// card so the image stays atmospheric rather than competing with text.
+const sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 100vw";
+---
+
+<section id="book" class="relative isolate overflow-hidden bg-ink-950 py-32 sm:py-40">
+  <!-- Real alpine cabin-at-night photo as backdrop -->
+  <Image
+    src={ctaBg}
+    alt=""
+    role="presentation"
+    widths={[640, 960, 1280, 1600, 1920]}
+    sizes={sizes}
+    loading="lazy"
+    decoding="async"
+    format="webp"
+    quality={68}
+    class="absolute inset-0 -z-40 h-full w-full object-cover"
+  />
+
+  <!-- Dark veil for legibility -->
+  <div
+    class="absolute inset-0 -z-30 bg-[linear-gradient(180deg,rgba(5,6,8,0.55)_0%,rgba(5,6,8,0.35)_50%,rgba(5,6,8,0.85)_100%)]"
+  >
+  </div>
+  <div
+    class="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_at_center,rgba(45,74,107,0.30),transparent_60%)]"
+  >
+  </div>
+
+  <!-- Distant tree line -->
+  <svg
+    class="absolute inset-x-0 bottom-0 -z-10 h-32 w-full text-ink-800"
+    viewBox="0 0 1440 200"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M0,200 L0,140 L60,120 L120,150 L180,110 L240,140 L300,100 L360,135 L420,115 L480,145 L540,105 L600,135 L660,110 L720,140 L780,115 L840,145 L900,120 L960,140 L1020,105 L1080,135 L1140,115 L1200,145 L1260,120 L1320,140 L1380,115 L1440,135 L1440,200 Z"
+      fill="currentColor"
+    />
+  </svg>
+
+  <div class="relative mx-auto max-w-6xl px-6">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="mb-6 text-xs tracking-[0.4em] uppercase text-frost-400">
+        Winter 2026 · Bookings open
+      </p>
+
+      <h2 class="text-balance font-display text-5xl leading-[1.02] text-snow sm:text-6xl lg:text-7xl">
+        Slow down. <br />Settle in. <br />Stay awhile.
+      </h2>
+
+      <p class="mx-auto mt-8 max-w-md text-pretty text-base text-frost-300 sm:text-lg">
+        Winter is waiting. Three bedrooms, one cedar sauna, and as much
+        silence as you can carry home.
+      </p>
+    </div>
+
+    <div class="mx-auto mt-14 max-w-3xl">
+      <BookingWidget client:load />
+    </div>
+
+    <p class="mt-10 text-center text-xs tracking-[0.3em] uppercase text-frost-500">
+      Concierge replies within 24 hours
+    </p>
+  </div>
+</section>
