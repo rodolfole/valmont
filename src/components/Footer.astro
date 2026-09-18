@@ -25,12 +25,6 @@ const columns = [
     ],
   },
 ];
-
-const socials = [
-  { label: "Instagram", href: "#" },
-  { label: "Are.na", href: "#" },
-  { label: "Email", href: "#" },
-];
 ---
 
 <footer class="relative border-t border-white/10 bg-ink-950 pt-20 pb-10">
@@ -81,13 +75,6 @@ const socials = [
       <p class="text-xs text-frost-500">
         © {new Date().getFullYear()} Valmont Cabin Co. · Aspen Ridge, CO.
       </p>
-      <ul class="flex gap-6 text-xs text-frost-300">
-        {socials.map((s) => (
-          <li>
-            <a href={s.href} class="transition hover:text-snow">{s.label}</a>
-          </li>
-        ))}
-      </ul>
     </div>
   </div>
 </footer>
